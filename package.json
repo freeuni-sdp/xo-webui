@@ -1,0 +1,23 @@
+{
+  "name": "xo-webui",
+  "version": "1.0.0",
+  "description": "xo microservice project webui",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freeuni-sdp/xo-webui.git"
+  },
+  "author": "Giorgi Kikolashvili",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/freeuni-sdp/xo-webui/issues"
+  },
+  "homepage": "https://github.com/freeuni-sdp/xo-webui#readme",
+  "dependencies": {
+    "express": "^4.12.4",
+    "jade": "^1.10.0"
+  }
+}

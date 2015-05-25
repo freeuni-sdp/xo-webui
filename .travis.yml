@@ -1,0 +1,6 @@
+language: java
+
+deploy:
+   provider: heroku
+   api_key: $herokuToken
+   app: xo-webui
