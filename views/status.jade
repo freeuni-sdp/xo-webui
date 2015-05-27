@@ -8,5 +8,5 @@ html
   body
     #container
       ul#services-list
-        li http://freeuni-sdp-todo.herokuapp.com/webapi/ping/
-        li http://freeuni-sdp-xo-game.herokuapp.com/webapi/ping/
+        each service, i in services
+          li.text=service.url

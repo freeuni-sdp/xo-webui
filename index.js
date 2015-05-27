@@ -13,8 +13,24 @@ app.get('/', function(req, res){
     res.render('home', {header1: 'Free Uni sdp 2015 final project'} );
 });
 
-app.get('/status/', function(req, res){
-  res.render('status');
+function Service(name, url) {
+  	this.url = url;
+  	this.name = name;
+}
+
+var services = [
+    new Service('signin','http://xo-signin.herokuapp.com/webapi/ping'),
+    new Service('login','http://xo-login.herokuapp.com/webapi/ping'),
+    new Service('rooms','http://xo-rooms.herokuapp.com/webapi/ping'),
+    new Service('game','http://xo-game.herokuapp.com/webapi/ping'),
+    new Service('chat','http://xo-chat.herokuapp.com/webapi/ping'),
+    new Service('achievements','http://xo-achiev.herokuapp.com/webapi/ping'),
+    new Service('history','http://xo-history.herokuapp.com/webapi/ping'),
+  	new Service('test','http://freeuni-sdp-todo.herokuapp.com/webapi/ping/'),
+];
+
+app.get('/status', function(req, res) {
+  	res.render('status', {title: 'xo health', services:services} );
 });
 
 var server = app.listen(port, '0.0.0.0',function () {
