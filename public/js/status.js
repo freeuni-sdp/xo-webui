@@ -1,5 +1,6 @@
 
 function pingOnce(url, index) {
+  var startTime = new Date();
   $.ajax( url, {
     dataType: 'jsonp',
     statusCode: {
@@ -12,12 +13,19 @@ function pingOnce(url, index) {
       200: function() {
         setClass("ok", index);
       }
+    },
+    complete: function() {
+      setPing( new Date() - startTime, index );
     }
   });
 }
 
 function setClass( statusClass, index ) {
-  $( "#services-list li" ).eq( index ).attr( "class" , statusClass);
+  $( "table tr" ).not(":first").eq( index ).attr( "class" , statusClass);
+}
+
+function setPing( time, index ) {
+  $( ".ping" ).eq( index ).text( time);
 }
 
 function pingForever( index, url ) {
@@ -30,8 +38,12 @@ function pingForever( index, url ) {
 
 $(function () {
 
-  $( "#services-list" ).selectable();
-  $( "#services-list li" ).each( function( index, item ) {
+  // $( "#services-list" ).selectable();
+  // $( "#services-list" ).each( function( index, item ) {
+  //   pingForever( index , $( this ).text() );
+  // });
+  $("table tr td:nth-child(2)").each(function ( index ) {
+    console.log(index+' '+$( this ).text());
     pingForever( index , $( this ).text() );
   });
 });

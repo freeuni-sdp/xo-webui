@@ -14,6 +14,10 @@
   border: 1px solid silver;
 }
 
+.ping {
+  text-align: center;
+}
+
 .ok {
   background: rgba(0,163,0, 0.5);
 }

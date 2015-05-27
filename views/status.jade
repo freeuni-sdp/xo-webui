@@ -7,6 +7,14 @@ block append styles
   link(rel='stylesheet', href='css/status.css')
 
 block content
-    ul#services-list
+  table#status
+    thead
+      th Name
+      th Host
+      th Ping
+    tbody
       each service, i in services
-        li.text=service.url
+        tr 
+          td= service.name
+          td#service-url= service.url
+          td(class="ping") -
