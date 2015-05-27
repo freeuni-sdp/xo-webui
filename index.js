@@ -13,6 +13,10 @@ app.get('/', function(req, res){
     res.render('home', {header1: 'Free Uni sdp 2015 final project'} );
 });
 
+app.get('/status/', function(req, res){
+  res.render('status');
+});
+
 var server = app.listen(port, '0.0.0.0',function () {
 
   var host = server.address().address;
