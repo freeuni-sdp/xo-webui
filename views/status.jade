@@ -1,0 +1,12 @@
+html
+	head
+		title= title
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+	script(src="status.js")
+	body
+		block content
+			h1 Service Health
+			ul
+				each service, i in services
+					h2= service.name
+					h4(id=i).endpoint= service.url
