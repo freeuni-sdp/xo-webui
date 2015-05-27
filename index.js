@@ -10,7 +10,7 @@ app.use(express.static('public'));
 
 
 app.get('/', function(req, res){
-    res.render('home', {header1: 'Free Uni sdp 2015 final project'} );
+    res.render('home', {title: 'Free Uni sdp 2015 final project'} );
 });
 
 function Service(name, url) {
