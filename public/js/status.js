@@ -16,6 +16,8 @@ function pingOnce(url, index) {
     },
     complete: function() {
       setPing( new Date() - startTime, index );
+      setTimeout( function(){
+        pingOnce( url, index );    }, 10000);
     }
   });
 }
@@ -30,8 +32,6 @@ function setPing( time, index ) {
 
 function pingForever( index, url ) {
   pingOnce( url, index );
-  setTimeout( function(){
-    pingOnce( url, index );     }, 10000);
 }
 
 ///+++ on load +++
@@ -39,7 +39,6 @@ function pingForever( index, url ) {
 $(function () {
 
   $("table tr td:nth-child(2)").each(function ( index ) {
-    console.log(index+' '+$( this ).text());
     pingForever( index , $( this ).text() );
   });
 });
