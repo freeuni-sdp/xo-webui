@@ -38,10 +38,6 @@ function pingForever( index, url ) {
 
 $(function () {
 
-  // $( "#services-list" ).selectable();
-  // $( "#services-list" ).each( function( index, item ) {
-  //   pingForever( index , $( this ).text() );
-  // });
   $("table tr td:nth-child(2)").each(function ( index ) {
     console.log(index+' '+$( this ).text());
     pingForever( index , $( this ).text() );
