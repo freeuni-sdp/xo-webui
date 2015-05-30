@@ -10,6 +10,14 @@ html
       link(rel='stylesheet', href='css/layout.css')
 
     body
+      #accountbar
+        a(href='/signin')
+          button(class="signin").
+            Sign in
+        a(href='/signup')
+          button(class="signup").
+            Sign up
+
       #container
         h2!=title
         block content

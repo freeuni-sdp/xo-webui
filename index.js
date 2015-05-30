@@ -33,6 +33,14 @@ app.get('/status', function(req, res) {
   	res.render('status', {title: 'xo health', services:services} );
 });
 
+app.get('/signin', function(req, res) {
+    res.render('signin', {title: 'sign in'} );
+});
+
+app.get('/signup', function(req, res) {
+    res.render('signup', {title: 'registration'} );
+});
+
 var server = app.listen(port, '0.0.0.0',function () {
 
   var host = server.address().address;
