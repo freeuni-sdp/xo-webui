@@ -35,6 +35,7 @@ table td {
 
 #container {
   margin-top: 10%;
-  margin-left: 40%;
-  width: 750px;
+  width: 700px;
+  margin-left: auto ;
+  margin-right: auto ;
 }
