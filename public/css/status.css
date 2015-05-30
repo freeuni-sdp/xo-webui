@@ -1,19 +1,4 @@
 
-table {
-  margin: 3px;
-  padding: 0.4em;
-  font-size: 1.4em;
-  height: 18px;
-  border: 1px solid silver;
-  border-collapse:separate; 
-  border-spacing:.2em;
-}
-
-table td {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
 .ping {
   text-align: center;
 }
