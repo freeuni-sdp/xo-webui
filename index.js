@@ -33,8 +33,15 @@ app.get('/status', function(req, res) {
   	res.render('status', {title: 'xo health', services:services} );
 });
 
+var user = {
+  name: 'TJ',
+  email: 'tj@vision-media.ca',
+  city: 'Victoria',
+  province: 'BC'
+};
+
 app.get('/signin', function(req, res) {
-    res.render('signin', {title: 'sign in'} );
+    res.render('signin', {title: 'sign in', user: user} );
 });
 
 app.get('/signup', function(req, res) {

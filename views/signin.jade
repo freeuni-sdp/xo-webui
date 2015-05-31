@@ -1,1 +1,21 @@
 extends ./layout.jade
+
+block append scripts
+  script(src='/js/signin.js')
+
+block append styles
+  link(rel='stylesheet', href='css/sign.css')
+
+block content
+    form
+      fieldset
+        legend!=title
+        p
+          label(for="user") Username
+            input(type="text", name="user")
+        p
+          label(for="password") Password
+            a(href='/forgot') forgot password
+            input(type="password", name="password")
+        p.buttons
+          input(type="submit", value="Continue")
