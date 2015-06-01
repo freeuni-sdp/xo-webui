@@ -7,6 +7,7 @@ var port = process.env.PORT || 3000;
 
 app.set('view engine', 'jade');
 app.use(express.static('public'));
+app.use(require('connect-livereload')());
 
 
 app.get('/', function(req, res){
