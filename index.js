@@ -23,7 +23,7 @@ var services = [
     new Service('signin','http://xo-signin.herokuapp.com/webapi/ping'),
     new Service('login','http://xo-login.herokuapp.com/webapi/ping'),
     new Service('rooms','http://xo-rooms.herokuapp.com/webapi/ping'),
-    new Service('game','http://xo-game.herokuapp.com/webapi/ping'),
+    new Service('game','http://xo-game-sdp.herokuapp.com/webapi/ping'),
     new Service('chat','http://xo-chat.herokuapp.com/webapi/ping'),
     new Service('achievements','http://xo-achiev.herokuapp.com/webapi/ping'),
     new Service('history','http://xo-history.herokuapp.com/webapi/ping'),
