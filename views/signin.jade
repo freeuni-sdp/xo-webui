@@ -2,6 +2,7 @@ extends ./layout.jade
 
 block append scripts
   script(src='/js/signin.js')
+  script(src='/js/serialize.js')
 
 block append styles
   link(rel='stylesheet', href='css/sign.css')
@@ -15,7 +16,7 @@ block content
             input(type="text", name="user")
         p
           label(for="password") Password
-            a(href='/forgot') forgot password
+            a(href='/recover') forgot password
             input(type="password", name="password")
-        p.buttons
-          input(type="submit", value="Continue")
+        p.button
+          input(type="submit", value="Recover")

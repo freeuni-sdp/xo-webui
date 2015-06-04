@@ -11,42 +11,39 @@ app.use(require('connect-livereload')());
 
 
 app.get('/', function(req, res){
-    res.render('home', {title: 'Free Uni sdp 2015 final project'} );
+  res.render('home', {title: 'Free Uni sdp 2015 final project'} );
 });
 
 function Service(name, url) {
-  	this.url = url;
-  	this.name = name;
+  this.url = url;
+  this.name = name;
 }
 
 var services = [
-    new Service('signin','http://xo-signin.herokuapp.com/webapi/ping'),
-    new Service('login','http://xo-login.herokuapp.com/webapi/ping'),
-    new Service('rooms','http://xo-rooms.herokuapp.com/webapi/ping'),
-    new Service('game','http://xo-game-sdp.herokuapp.com/webapi/ping'),
-    new Service('chat','http://xo-chat.herokuapp.com/webapi/ping'),
-    new Service('achievements','http://xo-achiev.herokuapp.com/webapi/ping'),
-    new Service('history','http://xo-history.herokuapp.com/webapi/ping'),
-  	new Service('test','http://freeuni-sdp-todo.herokuapp.com/webapi/ping/'),
+  new Service('signin','http://xo-signin.herokuapp.com/webapi/ping'),
+  new Service('login','http://xo-login.herokuapp.com/webapi/ping'),
+  new Service('rooms','http://xo-rooms.herokuapp.com/webapi/ping'),
+  new Service('game','http://xo-game-sdp.herokuapp.com/webapi/ping'),
+  new Service('chat','http://xo-chat.herokuapp.com/webapi/ping'),
+  new Service('achievements','http://xo-achiev.herokuapp.com/webapi/ping'),
+  new Service('history','http://xo-history.herokuapp.com/webapi/ping'),
+  new Service('test','http://freeuni-sdp-todo.herokuapp.com/webapi/ping/'),
 ];
 
 app.get('/status', function(req, res) {
   	res.render('status', {title: 'xo health', services:services} );
 });
 
-var user = {
-  name: 'TJ',
-  email: 'tj@vision-media.ca',
-  city: 'Victoria',
-  province: 'BC'
-};
-
 app.get('/signin', function(req, res) {
-    res.render('signin', {title: 'sign in', user: user} );
+  res.render('signin', {title: 'sign in'} );
 });
 
 app.get('/signup', function(req, res) {
-    res.render('signup', {title: 'registration'} );
+  res.render('signup', {title: 'registration'} );
+});
+
+app.get('/recover', function(req, res) {
+  res.render('recover', {title: 'recover'} );
 });
 
 var server = app.listen(port, '0.0.0.0',function () {

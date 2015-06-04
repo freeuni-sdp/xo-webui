@@ -1,6 +1,9 @@
 
-fieldset
-{
-  border:2px solid silver;
-  border-radius:8px;  
+fieldset {
+  border: 2px solid silver;
+  border-radius: 8px;
+}
+
+input:not([type=submit]) {
+  width: 300px;
 }

@@ -1,0 +1,14 @@
+extends ./layout.jade
+
+block append scripts
+  script(src='/js/recover.js')
+  script(src='/js/serialize.js')
+
+block append styles
+  link(rel='stylesheet', href='css/sign.css')
+
+block content
+  p enter the mail address which is linked to your account
+  input(type="text", name="email_recovery" placeholder="someone@example.com")
+  p#send-button
+    input(type="submit", value="Send")
