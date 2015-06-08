@@ -10,6 +10,10 @@ function pingOnce(url, index) {
       404: function() {
         setClass("not-found", index);
       },
+      503: function() {
+          console.log("asdasdasdasdasds");
+        setClass("timeout", index);
+      },
       200: function() {
         setClass("ok", index);
       }

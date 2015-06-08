@@ -9,7 +9,7 @@ table {
   font-size: 1.4em;
   height: 18px;
   border: 1px solid silver;
-  border-collapse:separate; 
+  border-collapse:separate;
   border-spacing:.2em;
 }
 
@@ -31,18 +31,18 @@ input:focus, input.focus {
 }
 
 #accountbar {
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 999;
-	width: 100%;
-	margin-bottom: 1%;
-	margin-top: 1%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  margin-bottom: 1;
+  margin-top: 1%;
 }
 
 #accountbar button {
-	margin: .5%;
-	float: right;
+  margin: .5%;
+  float: right;
 }
 
 #container {

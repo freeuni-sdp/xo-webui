@@ -39,7 +39,7 @@ app.get('/signin', function(req, res) {
 });
 
 app.get('/signup', function(req, res) {
-  res.render('signup', {title: 'registration'} );
+  res.render('signup', {title: 'register'} );
 });
 
 app.get('/recover', function(req, res) {

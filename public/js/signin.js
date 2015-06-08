@@ -2,7 +2,7 @@
 $(function(){
   $( "form" ).submit(function(e) {
 
-    var url = "xo-signin.herokuapp.com/webui/sign"; // json api
+    var url = "xo-login.herokuapp.com/webui/sign"; // json api
     var data = JSON.stringify($('form').serializeObject()); // serializes the form's elements
     console.log(data);
     

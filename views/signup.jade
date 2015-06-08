@@ -1,1 +1,25 @@
 extends ./layout.jade
+
+block append scripts
+  script(src='/js/signup.js')
+  script(src='/js/serialize.js')
+
+block append styles
+  link(rel='stylesheet', href='css/sign.css')
+
+block content
+  form
+    p
+      label(for="user") Username
+        input(type="text", name="user")
+    p
+      label(for="email") Email
+        input(type="email", name="email")
+    p
+      label(for="password1") Password
+        input(type="password", name="password1")
+    p
+      label(for="password2") Repeat password
+        input(type="password", name="password2")
+    p.button
+      input(type="submit", value="Sign up")
