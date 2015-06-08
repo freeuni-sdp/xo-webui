@@ -8,15 +8,15 @@ block append styles
   link(rel='stylesheet', href='css/sign.css')
 
 block content
-    form
-      fieldset
-        legend!=title
-        p
-          label(for="user") Username
-            input(type="text", name="user")
-        p
-          label(for="password") Password
-            a(href='/recover') forgot password
-            input(type="password", name="password")
-        p.button
-          input(type="submit", value="Recover")
+  form
+    fieldset
+      legend!=title
+      p
+        label(for="user") Username
+          input(type="text", name="user")
+      p
+        label(for="password") Password
+          a(href='/recover') forgot password
+          input(type="password", name="password")
+      p.button
+        input(type="submit", value="Sign in")
