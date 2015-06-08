@@ -1,8 +1,10 @@
+doctype html
 extends ./layout.jade
 
 block append scripts
   script(src='/js/signup.js')
   script(src='/js/serialize.js')
+  script(src='http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js')
 
 block append styles
   link(rel='stylesheet', href='css/sign.css')
@@ -11,15 +13,15 @@ block content
   form
     p
       label(for="user") Username
-        input(type="text", name="user")
+        input(type="text", name="user", required)
     p
       label(for="email") Email
-        input(type="email", name="email")
+        input(type="email", name="email", required)
     p
       label(for="password1") Password
-        input(type="password", name="password1")
+        input#p1(type="password", name="password1", required)
     p
       label(for="password2") Repeat password
-        input(type="password", name="password2")
+        input(type="password", name="password2", required, data-validation="confirmation")
     p.button
       input(type="submit", value="Sign up")
