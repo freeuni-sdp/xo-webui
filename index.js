@@ -46,6 +46,10 @@ app.get('/recover', function(req, res) {
   res.render('recover', {title: 'recover'} );
 });
 
+app.get('/rooms', function(req, res) {
+    res.render('rooms', {title: 'rooms'} );
+});
+
 var server = app.listen(port, '0.0.0.0',function () {
 
   var host = server.address().address;
