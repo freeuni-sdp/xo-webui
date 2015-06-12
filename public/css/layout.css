@@ -40,9 +40,14 @@ input:focus, input.focus {
   margin-top: 1%;
 }
 
-#accountbar button {
+.sign {
   margin: .5%;
   float: right;
+}
+
+.home {
+  margin: .5%;
+  float: left;
 }
 
 #container {
