@@ -24,7 +24,7 @@ function drawGrid(data) {
     $('.row').last().append(
       $('<div/>', {'class':'col'})
       .append( $('<h3/>').append('#'+obj.room) )
-      .append( $('<h5/>') ).append('active users: [' + obj.users.toString() + ']')
+      .append( $('<h5/>') ).append('active users: [' + obj["x-user"]+', '+obj["o-user"] + ']')
       );
 
     console.log("#"+i+" "+obj.room);
