@@ -30,26 +30,6 @@ input:focus, input.focus {
   box-shadow: 0 0 5px 1px #969696;
 }
 
-#accountbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  width: 100%;
-  margin-bottom: 1;
-  margin-top: 1%;
-}
-
-.sign {
-  margin: .5%;
-  float: right;
-}
-
-.home {
-  margin: .5%;
-  float: left;
-}
-
 #container {
   margin-top: 10%;
   width: 700px;

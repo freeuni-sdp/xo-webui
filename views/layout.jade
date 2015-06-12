@@ -8,18 +8,10 @@ html
     block styles  
       link(rel='stylesheet', href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css')
       link(rel='stylesheet', href='css/layout.css')
+      link(rel='stylesheet', href='css/header.css')
 
     body
-      #accountbar
-        a(href='/signin')
-          button(class="sign").
-            Sign in
-        a(href='/signup')
-          button(class="sign").
-            Sign up
-        a(href='/')
-          button(class="home").
-            Home
+      include ./header
 
       #container
         h2!=title
