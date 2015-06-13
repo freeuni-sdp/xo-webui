@@ -50,6 +50,10 @@ app.get('/rooms', function(req, res) {
     res.render('rooms', {title: 'rooms'} );
 });
 
+app.get('/jsonp', function(req, res) {
+    res.render('jsonp', {title: 'delete me'} );
+});
+
 var server = app.listen(port, '0.0.0.0',function () {
 
   var host = server.address().address;
