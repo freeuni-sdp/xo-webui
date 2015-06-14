@@ -37,7 +37,7 @@ function Room(id, x_user, o_user) {
   this.html = function() {
     return $('<div/>', {'class':'col'})
       .append( $('<h3/>').append('#'+id) )
-      .append( $('<h5/>') ).append(this.msg)
+      .append( $('<h5/>').append(this.msg) )
   };
 }
 
