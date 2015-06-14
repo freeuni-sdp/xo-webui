@@ -18,15 +18,55 @@ $( document ).ready(function() {
 function drawGrid(data) {
   $.each(data.rooms, function( i, obj ) {
 
+    var room = RoomFactory.get(obj);
+
     if ((i%colLen) == 0){
       $('#container').append( $('<div/>', {'class':'row'}) );
     }
-    $('.row').last().append(
-      $('<div/>', {'class':'col'})
-      .append( $('<h3/>').append('#'+obj.room) )
-      .append( $('<h5/>') ).append('active users: [' + obj.x_user+', '+obj.o_user + ']')
-      );
+    $('.row').last().append(room.html());
 
-    console.log("#"+i+" "+obj.room);
   });
 }
+
+function Room(id, x_user, o_user) {
+  this.id = id;
+  this.x_user = x_user;
+  this.o_user = o_user;
+  this.msg;
+
+  this.html = function() {
+    return $('<div/>', {'class':'col'})
+      .append( $('<h3/>').append('#'+id) )
+      .append( $('<h5/>') ).append(this.msg)
+  };
+}
+
+function RoomFactory() {};
+RoomFactory.get = function(obj) {
+  if (obj.x_user == null) {
+    return new EmptyRoom(obj.room);
+  }
+  if (obj.o_user == null) {
+    return new WaitingRoom(obj.room, obj.x_user);
+  }
+  return new FullRoom(obj.room, obj.x_user, obj.o_user);
+}
+
+function EmptyRoom(id) {
+  Room.call(this, id);
+  this.msg = 'empty';
+}
+
+function WaitingRoom(id, x_user) {
+  Room.call(this, id, x_user);
+  this.msg = x_user+'is waiting';
+}
+
+function FullRoom(id, x_user, o_user) {
+  Room.call(this, id, x_user);
+  this.msg = x_user+' vs '+o_user;
+}
+
+
+EmptyRoom.prototype = Object.create(Room.prototype);
+EmptyRoom.prototype.constructor = EmptyRoom;
