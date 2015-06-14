@@ -1,6 +1,21 @@
 
 var colLen = 3;
 
+$( document ).on( 'click', '.col', function(event) {
+  var roomId = $(this).attr('id');
+  $.ajax({
+    url: 'http://private-3e4b8-xorooms.apiary-mock.com/'+roomId+'?token=token',
+    type: 'POST',
+    dataType: 'jsonp',
+    success: function(data, status, xhttp) {
+      console.log("joined");
+    },
+    error: function(data, status, xhttp) {
+      console.log("error");
+    }
+  });
+})
+
 $( document ).ready(function() {
   $.ajax({
     url: 'http://private-3e4b8-xorooms.apiary-mock.com/?token=token',
@@ -13,6 +28,7 @@ $( document ).ready(function() {
       console.log("error");
     }
   });
+
 });
 
 function drawGrid(data) {
@@ -35,7 +51,7 @@ function Room(id, x_user, o_user) {
   this.msg;
 
   this.html = function() {
-    return $('<div/>', {'class':'col'})
+    return $('<div/>', {'class':'col', 'id':id})
       .append( $('<h3/>').append('#'+id) )
       .append( $('<h5/>').append(this.msg) )
   };
