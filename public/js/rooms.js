@@ -6,7 +6,7 @@ $( document ).on( 'click', '.col', function(event) {
   $.ajax({
     url: 'http://private-3e4b8-xorooms.apiary-mock.com/'+roomId+'?token=token',
     type: 'POST',
-    dataType: 'jsonp',
+    dataType: 'json',
     success: function(data, status, xhttp) {
       console.log("joined");
     },
