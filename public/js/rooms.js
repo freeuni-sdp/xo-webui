@@ -18,7 +18,7 @@ $( document ).on( 'click', '.col', function(event) {
 
 $( document ).ready(function() {
   $.ajax({
-    url: 'http://private-3e4b8-xorooms.apiary-mock.com/?token=token',
+    url: 'http://xo-rooms.herokuapp.com/webapi/?token=token',
     type: 'GET',
     dataType: 'json',
     success: function(data, status, xhttp) {
@@ -32,7 +32,7 @@ $( document ).ready(function() {
 });
 
 function drawGrid(data) {
-  $.each(data.rooms, function( i, obj ) {
+  $.each(data, function( i, obj ) {
 
     var room = RoomFactory.get(obj);
 
@@ -60,12 +60,12 @@ function Room(id, x_user, o_user) {
 function RoomFactory() {};
 RoomFactory.get = function(obj) {
   if (obj.x_user == null) {
-    return new EmptyRoom(obj.room);
+    return new EmptyRoom(obj.id);
   }
   if (obj.o_user == null) {
-    return new WaitingRoom(obj.room, obj.x_user);
+    return new WaitingRoom(obj.id, obj.x_user);
   }
-  return new FullRoom(obj.room, obj.x_user, obj.o_user);
+  return new FullRoom(obj.id, obj.x_user, obj.o_user);
 }
 
 function EmptyRoom(id) {
