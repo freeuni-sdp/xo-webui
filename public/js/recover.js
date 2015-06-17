@@ -1,17 +1,20 @@
 
 $(function(){
-  $( "#send-button" ).click(function() {
-    $.ajax({
-      url: 'http://xo-asdasd.herokuapp.com/webapi/recover',
-      type: 'POST',
-      dataType: 'jsonp',
-      data: JSON.stringify($( "input" ).serializeObject()),
-      success: function(data, status, xhttp) {
-        console.log("not inplemented")
-      },
-      error: function(data, status, xhttp) {
-        console.log("error");
-      }
-    });
+
+  $( "form" ).validate({
+    submitHandler: function(e) {
+
+      $.ajax({
+        url: 'http://private-6e6f0-xosignin.apiary-mock.com/recover_password',
+        type: 'GET',
+        data: JSON.stringify($( "input" ).serializeObject()),
+        success: function(data) {
+          window.location.href = "/signin";
+        },
+        error: function(data) {
+          console.log("error");
+        }
+      });
+    }
   });
 });
