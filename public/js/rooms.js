@@ -1,20 +1,49 @@
 
 var colLen = 3;
+var myRoomId = -1; // -1 when room not selected
 
 $( document ).on( 'click', '.col', function(event) {
   var roomId = $(this).attr('id');
+  if (roomId === myRoomId) {
+    console.log('leave? '+myRoomId);
+    leaveRoom(roomId);
+    myRoomId = -1;
+    return;
+  }
+  if (myRoomId === -1) {
+    myRoomId = roomId;
+    console.log('join? '+myRoomId);
+    joinRoom(roomId);
+  }
+
+});
+
+function leaveRoom(roomId) {
   $.ajax({
-    url: 'http://private-3e4b8-xorooms.apiary-mock.com/'+roomId+'?token=token',
+    url: 'http://xo-rooms.herokuapp.com/webapi/'+roomId+'/1/?token=token',
+    type: 'DELETE',
+    success: function(data, status, xhttp) {
+      console.log("left");
+    },
+    error: function(data, status, xhttp) {
+      console.log("error leaving");
+    }
+  });
+}
+
+function joinRoom(roomId) {
+  $.ajax({
+    url: 'http://xo-rooms.herokuapp.com/webapi/'+roomId+'?token=token',
     type: 'POST',
     dataType: 'json',
     success: function(data, status, xhttp) {
       console.log("joined");
     },
     error: function(data, status, xhttp) {
-      console.log("error");
+      console.log("error joining");
     }
   });
-})
+}
 
 $( document ).ready(function() {
   $.ajax({
