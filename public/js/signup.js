@@ -11,11 +11,11 @@ $(function(){
 
       $.ajax({
         type: "POST",
-        url: "http://private-6e6f0-xosignin.apiary-mock.com/webapi/signup",
+        url: "http://private-6e6f0-xosignin.apiary-mock.com/signup",
         dataType: 'json',
         data: JSON.stringify($('form').serializeObject()),
         success: function(data) {
-          alert(data); // show response
+          window.location.href = "/signin";
         },
         error: function(data) {
           console.log("fail");
