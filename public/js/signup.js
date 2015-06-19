@@ -11,7 +11,7 @@ $(function(){
 
       $.ajax({
         type: "POST",
-        url: "http://private-6e6f0-xosignin.apiary-mock.com/signup",
+        url: "http://xo-signin.herokuapp.com/signup",
         dataType: 'json',
         data: JSON.stringify($('form').serializeObject()),
         success: function(data) {

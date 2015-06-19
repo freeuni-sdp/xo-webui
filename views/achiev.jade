@@ -1,0 +1,13 @@
+extends ./layout.jade
+
+block append scripts
+  script(src='/js/achiev.js')
+  script(src='http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js')
+
+block append styles
+  link(rel='stylesheet', href='css/achiev.css')
+
+block content
+  p search by username
+  input(type="text")
+  ul
