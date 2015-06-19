@@ -25,7 +25,7 @@ function downloadData(username) {
 }
 
 function drawRow(data) {
-  Record rec = Record.toRecord(data);
+  var rec = Record.toRecord(data);
   $('ul').last().append(rec.html());
 }
 
@@ -40,6 +40,6 @@ function Record(score, rank) {
   };
 }
 
-Record.toRecord(plain) {
+Record.toRecord = function(plain) {
   return new Record(plain.score, plain.rank);
 }
