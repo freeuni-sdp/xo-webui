@@ -1,3 +1,4 @@
+var handle;
 
 $(function(){
 
@@ -6,27 +7,39 @@ $(function(){
     if (!dInput.trim()) {
       return;
     };
-    downloadData(dInput);
+    clearRow();
+    clearTimeout(handle);
+    handle = setTimeout(function(){downloadData(dInput)}, 1000);
   });
 
 });
 
 function downloadData(username) {
   $.ajax({
-    url: 'https://xo-achiev.herokuapp.com/webapi/+username',
+    url: 'https://xo-achiev.herokuapp.com/webapi/'+username,
     type: 'GET',
     success: function(data, status, xhttp) {
       drawRow(data);
     },
     error: function(data, status, xhttp) {
-      console.log("error");
+      drawError();
+      console.log("error "+status);
     }
   });
+}
+
+function clearRow() {
+  $("ul").empty();
+  $(".msg").empty();
 }
 
 function drawRow(data) {
   var rec = Record.toRecord(data);
   $('ul').last().append(rec.html());
+}
+
+function drawError() {
+  $('.results').last().append($('<h5/>', {'class':'msg'}).append('no results'));
 }
 
 function Record(score, rank) {
