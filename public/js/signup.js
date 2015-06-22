@@ -19,8 +19,10 @@ $(function(){
           console.log(data);
           window.location.href = "/signin";
         },
-        error: function(data) {
-          console.log("fail");
+        statusCode: {
+          409: function (resonse) {
+            console.log("already exists");
+          }
         }
       });
       

@@ -5,9 +5,10 @@ $(function(){
     submitHandler: function(e) {
 
       $.ajax({
-        url: 'http://private-6e6f0-xosignin.apiary-mock.com/recover_password',
+        url: 'http://xo-signin.herokuapp.com/recover_password',
         type: 'POST',
-        data: JSON.stringify($( "input" ).serializeObject()),
+        contentType:"application/json; charset=utf-8",
+        data: JSON.stringify($( "input:not(:submit)" ).serializeObject()),
         success: function(data) {
           window.location.href = "/signin";
         },
