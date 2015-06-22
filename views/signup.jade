@@ -12,16 +12,16 @@ block append styles
 block content
   form
     p
-      label(for="user") Username
-        input(type="text", name="user", required)
+      label(for="username") Username
+        input(type="text", name="username", required)
     p
       label(for="email") Email
         input(type="email", name="email", required)
     p
-      label(for="password1") Password
+      label(for="password") Password
         input#p1(type="password", name="password", required)
     p
       label(for="password1") Repeat password
-        input(type="password", name="password1", required, data-validation="confirmation")
+        input(type="password", name="password1", class="skip", required, data-validation="confirmation")
     p.button
       input(type="submit", value="Sign up")

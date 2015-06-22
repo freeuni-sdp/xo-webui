@@ -14,7 +14,7 @@ $(function(){
         url: "http://xo-signin.herokuapp.com/signup",
         dataType: 'json',
         contentType:"application/json; charset=utf-8",
-        data: JSON.stringify($('form').serializeObject()),
+        data: JSON.stringify($('input:not(.skip):not(:submit)').serializeObject()),
         success: function(data) {
           console.log(data);
           window.location.href = "/signin";
