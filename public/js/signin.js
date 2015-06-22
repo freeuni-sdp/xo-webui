@@ -2,20 +2,22 @@
 $(function(){
   $( "form" ).submit(function(e) {
 
-    var url = "xo-login.herokuapp.com/webui/sign"; // json api
+    var url = "http://xo-login.herokuapp.com/webapi/login"; // json api
     var data = JSON.stringify($('form').serializeObject()); // serializes the form's elements
     console.log(data);
     
     $.ajax({
-      type: "POST",
+      type: "PUT",
       url: url,
-      dataType: 'jsonp',
+      dataType: 'json',
+      contentType:"application/json; charset=utf-8",
       data: data,
       success: function(data) {
-        alert(data); // show response
+        sessionStorage.setItem('token', data.token);
+        window.location.href = "/";
       },
       error: function(data) {
-        console.log("fail");
+        console.log("username or password incorrect");
       }
     });
     
