@@ -13,7 +13,7 @@ $(function(){
           window.location.href = "/signin";
         },
         error: function(data) {
-          console.log("error");
+          alert("error");
         }
       });
     }

@@ -1,6 +1,6 @@
 
 $(function(){
-  
+
   $( "form" ).validate({
     rules: {
       password2: {
@@ -21,11 +21,11 @@ $(function(){
         },
         statusCode: {
           409: function (resonse) {
-            console.log("already exists");
+            alert("already exists");
           }
         }
       });
-      
+
     }
   });
 

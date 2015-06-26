@@ -20,7 +20,7 @@ $( document ).on( 'click', '.col', function(event) {
 
 function leaveRoom(roomId) {
   $.ajax({
-    url: 'http://xo-rooms.herokuapp.com/webapi/'+roomId+'/1/?token=token',
+    url: 'http://xo-rooms.herokuapp.com/'+roomId+'/1/?token=token',
     type: 'DELETE',
     success: function(data, status, xhttp) {
       console.log("left");
@@ -33,7 +33,7 @@ function leaveRoom(roomId) {
 
 function joinRoom(roomId) {
   $.ajax({
-    url: 'http://xo-rooms.herokuapp.com/webapi/'+roomId+'?token=token',
+    url: 'http://xo-rooms.herokuapp.com/'+roomId+'?token=token',
     type: 'POST',
     dataType: 'json',
     success: function(data, status, xhttp) {
@@ -47,7 +47,7 @@ function joinRoom(roomId) {
 
 $( document ).ready(function() {
   $.ajax({
-    url: 'http://xo-rooms.herokuapp.com/webapi/?token=token',
+    url: 'http://xo-rooms.herokuapp.com/?token=token',
     type: 'GET',
     dataType: 'json',
     success: function(data, status, xhttp) {
