@@ -8,9 +8,6 @@ table {
   padding: 0.4em;
   font-size: 1.4em;
   height: 18px;
-  border: 1px solid silver;
-  border-collapse:separate;
-  border-spacing:.2em;
 }
 
 table td {
@@ -35,4 +32,10 @@ input:focus, input.focus {
   width: 700px;
   margin-left: auto ;
   margin-right: auto ;
+}
+
+.border {
+  border: 1px solid silver;
+  border-collapse:separate;
+  border-spacing:.2em;
 }

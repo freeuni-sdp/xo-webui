@@ -1,18 +1,18 @@
-
+var token = sessionStorage.getItem('token');
+var myRoomId = sessionStorage.getItem('room_id');
+var myName = sessionStorage.getItem('name');
 var colLen = 3;
-var myRoomId = -1; // -1 when room not selected
 
 $( document ).on( 'click', '.col', function(event) {
   var roomId = $(this).attr('id');
-  if (roomId === myRoomId) {
-    console.log('leave? '+myRoomId);
-    leaveRoom(roomId);
-    myRoomId = -1;
-    return;
-  }
-  if (myRoomId === -1) {
-    myRoomId = roomId;
-    console.log('join? '+myRoomId);
+  if (myRoomId) {
+    if (roomId === myRoomId) {
+      console.log('leaving '+ myRoomId);
+      leaveRoom(roomId);
+    }
+
+  } else {
+    console.log('joining '+ myRoomId);
     joinRoom(roomId);
   }
 
@@ -20,34 +20,38 @@ $( document ).on( 'click', '.col', function(event) {
 
 function leaveRoom(roomId) {
   $.ajax({
-    url: 'http://xo-rooms.herokuapp.com/'+roomId+'/1/?token=token',
+    url: 'http://xo-rooms.herokuapp.com/'+roomId+'/'+myName+'/?token=' + token,
     type: 'DELETE',
     success: function(data, status, xhttp) {
-      console.log("left");
+      console.log("done");
+      myRoomId = null;
+      sessionStorage.removeItem("room_id");
     },
     error: function(data, status, xhttp) {
-      console.log("error leaving");
+      console.log("error");
     }
   });
 }
 
 function joinRoom(roomId) {
   $.ajax({
-    url: 'http://xo-rooms.herokuapp.com/'+roomId+'?token=token',
+    url: 'http://xo-rooms.herokuapp.com/'+roomId+'?token=' + token,
     type: 'POST',
     dataType: 'json',
     success: function(data, status, xhttp) {
-      console.log("joined");
+      console.log("done");
+      myRoomId = data.id;
+      sessionStorage.setItem("room_id", myRoomId);
     },
     error: function(data, status, xhttp) {
-      console.log("error joining");
+      console.log("error");
     }
   });
 }
 
 $( document ).ready(function() {
   $.ajax({
-    url: 'http://xo-rooms.herokuapp.com/?token=token',
+    url: 'http://xo-rooms.herokuapp.com/?token=' + token,
     type: 'GET',
     dataType: 'json',
     success: function(data, status, xhttp) {
@@ -80,7 +84,7 @@ function Room(id, x_user, o_user) {
   this.msg;
 
   this.html = function() {
-    return $('<div/>', {'class':'col', 'id':id})
+    return $('<div/>', {'class':'col border', 'id':id})
       .append( $('<h3/>').append('#'+id) )
       .append( $('<h5/>').append(this.msg) )
   };
