@@ -26,6 +26,8 @@ function leaveRoom(roomId) {
       console.log("done");
       myRoomId = null;
       sessionStorage.removeItem("room_id");
+
+      updateRoomLayout(roomId, data);
     },
     error: function(data, status, xhttp) {
       console.log("error");
@@ -42,6 +44,8 @@ function joinRoom(roomId) {
       console.log("done");
       myRoomId = data.id;
       sessionStorage.setItem("room_id", myRoomId);
+
+      updateRoomLayout(roomId, data);
     },
     error: function(data, status, xhttp) {
       console.log("error");
@@ -49,7 +53,19 @@ function joinRoom(roomId) {
   });
 }
 
+function updateRoomLayout(id, data) {
+  var room = RoomFactory.get(data);
+  $('#'+id+' h5').text(room.msg);
+}
+
+
+
 $( document ).ready(function() {
+  callForever();
+
+});
+
+function callForever() {
   $.ajax({
     url: 'http://xo-rooms.herokuapp.com/?token=' + token,
     type: 'GET',
@@ -59,12 +75,15 @@ $( document ).ready(function() {
     },
     error: function(data, status, xhttp) {
       console.log("error");
+    },
+    complete: function() {
+      setTimeout( function(){callForever();}, 2000);
     }
   });
-
-});
+}
 
 function drawGrid(data) {
+  $('#container .row').remove();
   $.each(data, function( i, obj ) {
 
     var room = RoomFactory.get(obj);
@@ -86,7 +105,7 @@ function Room(id, x_user, o_user) {
   this.html = function() {
     return $('<div/>', {'class':'col border', 'id':id})
       .append( $('<h3/>').append('#'+id) )
-      .append( $('<h5/>').append(this.msg) )
+      .append( $('<h5/>').append(this.msg) );
   };
 }
 
