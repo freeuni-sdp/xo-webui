@@ -1,4 +1,7 @@
 var handle;
+var token = sessionStorage.getItem('token');
+var myRoomId = sessionStorage.getItem('room_id');
+var myName = sessionStorage.getItem('name');
 
 $(function(){
 
@@ -7,7 +10,6 @@ $(function(){
     if (!dInput.trim()) {
       return;
     };
-    clearRow();
     clearTimeout(handle);
     handle = setTimeout(function(){downloadData(dInput)}, 1000);
   });
@@ -18,6 +20,9 @@ function downloadData(username) {
   $.ajax({
     url: 'https://xo-achiev.herokuapp.com/webapi/'+username,
     type: 'GET',
+    beforeSend: function(e) {
+      clearRow();
+    },
     success: function(data, status, xhttp) {
       drawRow(data);
     },
