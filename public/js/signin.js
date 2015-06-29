@@ -15,8 +15,13 @@ $(function(){
         sessionStorage.setItem('username', jsonForm.username);
         window.location.href = "/";
       },
-      error: function(data) {
-        alert("username or password incorrect");
+      statusCode: {
+        422: function (response) {
+            alert("username or password incorrect");
+        },
+        400: function (response) {
+            alert("error 400");
+        }
       }
     });
 
