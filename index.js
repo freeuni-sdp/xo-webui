@@ -54,6 +54,10 @@ app.get('/achiev', function(req, res) {
     res.render('achiev', {title: 'user standings'} );
 });
 
+app.get('/game', function(req, res) {
+    res.render('game', {title: 'game'} );
+});
+
 var server = app.listen(port, '0.0.0.0',function () {
 
   var host = server.address().address;

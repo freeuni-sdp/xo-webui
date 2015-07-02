@@ -77,7 +77,7 @@ function callForeverMonitorRoom() {
     dataType: 'json',
     success: function(data, status, xhttp) {
       if (data.x_user && data.o_user) {
-        console.log("game start");
+        window.location.href = "/game";
       };
     },
     error: function(data, status, xhttp) {
