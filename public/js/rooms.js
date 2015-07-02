@@ -1,6 +1,6 @@
 var token = sessionStorage.getItem('token');
 var myRoomId = sessionStorage.getItem('room_id');
-var myName = sessionStorage.getItem('name');
+var myName = sessionStorage.getItem('username');
 var colLen = 3;
 
 $( document ).on( 'click', '.col', function(event) {
@@ -20,7 +20,7 @@ $( document ).on( 'click', '.col', function(event) {
 
 function leaveRoom(roomId) {
   $.ajax({
-    url: 'http://xo-rooms.herokuapp.com/'+roomId+'/'+myName+'/?token=' + token,
+    url: 'http://xo-rooms.herokuapp.com/'+roomId+'/'+myName+'?token=' + token,
     type: 'DELETE',
     success: function(data, status, xhttp) {
       console.log("done");
@@ -61,11 +61,35 @@ function updateRoomLayout(id, data) {
 
 
 $( document ).ready(function() {
-  callForever();
-
+  callForeverGetRooms();
+  callForeverMonitorRoom();
 });
 
-function callForever() {
+function callForeverMonitorRoom() {
+  if (!myRoomId) {
+    setTimeout( function(){callForeverMonitorRoom();}, 2000);
+    return;
+  };
+
+  $.ajax({
+    url: 'http://xo-rooms.herokuapp.com/'+myRoomId+'?token=' + token,
+    type: 'GET',
+    dataType: 'json',
+    success: function(data, status, xhttp) {
+      if (data.x_user && data.o_user) {
+        console.log("game start");
+      };
+    },
+    error: function(data, status, xhttp) {
+      console.log("error");
+    },
+    complete: function() {
+      setTimeout( function(){callForeverMonitorRoom();}, 2000);
+    }
+  });
+}
+
+function callForeverGetRooms() {
   $.ajax({
     url: 'http://xo-rooms.herokuapp.com/?token=' + token,
     type: 'GET',
@@ -77,7 +101,7 @@ function callForever() {
       console.log("error");
     },
     complete: function() {
-      setTimeout( function(){callForever();}, 2000);
+      setTimeout( function(){callForeverGetRooms();}, 2000);
     }
   });
 }
