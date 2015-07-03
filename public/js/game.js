@@ -3,13 +3,13 @@ var myRoomId = sessionStorage.getItem('room_id');
 var myName = sessionStorage.getItem('username');
 
 var myTurn = false;
+var iAmX = false;
 var opponentName;
 
 $(function(){
 
   registerOnGame();
   callForeverCheckState();
-  tictactoe();
 
   $('#end-game').on('click', function() {
       leaveRoom();
@@ -34,8 +34,10 @@ function registerOnGame() {
   });
 }
 
+var gameStarted = false;
+var turnsSoFar = 0;
+var turnsNow = 0;
 function callForeverCheckState() {
-  var breakLoop = false;
   $.ajax({
     url: 'http://xo-game-sdp.herokuapp.com/webapi/'+myRoomId+'?token=' + token,
     type: 'GET',
@@ -47,16 +49,28 @@ function callForeverCheckState() {
             $('#status').text('waiting for another player');
             break;
           case 1:
-            myTurn = data.playerOne === myName;
-            opponentName = myTurn ? data.playerTwo : data.playerOne;
-            $('#status').text('playing against '+opponentName);
+            if (!gameStarted) {
+                gameStarted = true;
 
-            breakLoop = true;
+                myTurn = data.playerOne === myName;
+                iAmX = myTurn;
+                opponentName = myTurn ? data.playerTwo : data.playerOne;
+                $('#status').text('playing vs '+opponentName);
+
+                tictactoe();
+                break;
+            }
+
+            turnsNow = data.table.length;
+            if (turnsNow != turnsSoFar) {
+                myTurn = true;
+                turnsSoFar = turnsNow;
+                updateCells(data.table);
+            }
             break;
           case 2:
             $('#status').text('finished');
 
-            breakLoop = true;
             break;
           default:
 
@@ -66,12 +80,19 @@ function callForeverCheckState() {
       console.log("error");
     },
     complete: function() {
-      if (breakLoop) {
-        return;
-      }
       setTimeout( function(){callForeverCheckState();}, 5000);
     }
   });
+}
+
+function updateCells(cells) {
+    var arrayLength = cells.length;
+    for (var i = 0; i < arrayLength; i++) {
+        var indicator = cells[i];
+        var cellNum = Math.log2(indicator);
+        var turn = i%2 === 0 ? "X" : "O";
+        $('td:eq('+cellNum+')').html(turn);
+    }
 }
 
 function leaveRoom() {
@@ -95,7 +116,7 @@ function leaveRoom() {
  * A complete tic-tac-toe widget, using JQuery.  Just include this
  * script in a browser page and play.  A tic-tac-toe game will be
  * included as a child element of the element with id "tictactoe".
- * If the page has no such element, it will just be added at the end 
+ * If the page has no such element, it will just be added at the end
  * of the body.
  */
 function tictactoe() {
@@ -105,6 +126,7 @@ function tictactoe() {
         score,
         moves,
         turn = "X",
+        lastClickedCell,
 
     /*
      * To determine a win condition, each square is "tagged" from left
@@ -133,7 +155,7 @@ function tictactoe() {
      * X's turn.
      */
     startNewGame = function () {
-        turn = "X";
+        turn = myTurn ? "X" : "O";
         score = {"X": 0, "O": 0};
         moves = 0;
         squares.forEach(function (square) {square.html(EMPTY);});
@@ -158,10 +180,11 @@ function tictactoe() {
      */
     set = function () {
 
-        if ($(this).html() !== EMPTY) {
+        if ($(this).html() !== EMPTY || !myTurn) {
             return;
         }
-        $(this).html(turn);
+        lastClickedCell = $(this);
+        // $(this).html(turn);
         console.log($(this));
         moves += 1;
         score[turn] += $(this)[0].indicator;
@@ -173,9 +196,30 @@ function tictactoe() {
             alert("Cat\u2019s game!");
             startNewGame();
         } else {
-            turn = turn === "X" ? "O" : "X";
+            // turn = turn === "X" ? "O" : "X";
+            myTurn = !myTurn;
+            sendUpdate($(this)[0].indicator);
         }
     },
+
+    sendUpdate = function (indicator) {
+        $.ajax({
+            url: 'http://xo-game-sdp.herokuapp.com/webapi/'+myRoomId+'?token=' + token,
+            type: 'PUT',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify({"user_id": myName, "cell": indicator}),
+            success: function(data, status, xhttp) {
+                console.log("update response");
+                lastClickedCell.html(turn);
+                turnsSoFar = moves;
+                // myTurn = !myTurn;
+            },
+            error: function(data, status, xhttp) {
+                console.log("error");
+            }
+        });
+    }
 
     /*
      * Creates and attaches the DOM elements for the board as an
