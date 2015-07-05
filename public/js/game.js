@@ -12,9 +12,10 @@ $(function() {
 
 });
 
-var gameStarted, turnsNow, turnsSoFar, myTurn, iAmX, opponentName;
+var gameStarted, gameFinished, turnsNow, turnsSoFar, myTurn, iAmX, opponentName;
 function init() {
   gameStarted = false;
+  gameFinished = false;
   turnsNow = 0;
   turnsSoFar = 0;
   myTurn = false;
@@ -76,7 +77,7 @@ function retrieveGameStateForever(onBoardUpdate) {
         case 2:
           $('#status').text('finished. winner '+data.winner);
           $('#turn').text('');
-          gameStarted = false;
+          gameFinished = true;
           break;
         default:
 
@@ -91,6 +92,12 @@ function retrieveGameStateForever(onBoardUpdate) {
       console.log("error");
     },
     complete: function() {
+      if (gameFinished) {
+        setTimeout(function() {
+          init();
+        }, 5000);
+        return;
+      }
       setTimeout(function() {
         retrieveGameStateForever(onBoardUpdate);
       }, 5000);
@@ -109,7 +116,7 @@ function updateCells(cells) {
     var indicator = cells[i];
     var cellNum = Math.log2(indicator);
     var turn = i % 2 === 0 ? "X" : "O";
-    $('td:eq(' + cellNum + ')').html(turn);
+    $('table:last td:eq(' + cellNum + ')').html(turn);
   }
 }
 
