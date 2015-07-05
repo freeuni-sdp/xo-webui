@@ -2,20 +2,27 @@ var token = sessionStorage.getItem('token');
 var myRoomId = sessionStorage.getItem('room_id');
 var myName = sessionStorage.getItem('username');
 
-var myTurn = false;
-var iAmX = false;
-var opponentName;
-
 $(function() {
 
-  registerOnGame();
-  retrieveGameStateForever(onBoardUpdate);
+  init();
 
   $('#end-game').on('click', function() {
     leaveRoom();
   });
 
 });
+
+var gameStarted, turnsNow, turnsSoFar, myTurn, iAmX, opponentName;
+function init() {
+  gameStarted = false;
+  turnsNow = 0;
+  turnsSoFar = 0;
+  myTurn = false;
+  iAmX = false;
+
+  registerOnGame();
+  retrieveGameStateForever(onBoardUpdate);
+}
 
 function registerOnGame() {
   $.ajax({
@@ -36,10 +43,6 @@ function registerOnGame() {
   });
 }
 
-var gameStarted = false;
-var turnsSoFar = 0;
-var turnsNow = 0;
-
 function retrieveGameStateForever(onBoardUpdate) {
   $.ajax({
     url: 'http://xo-game-sdp.herokuapp.com/webapi/' + myRoomId + '?token=' + token,
@@ -48,9 +51,8 @@ function retrieveGameStateForever(onBoardUpdate) {
     success: function(data, status, xhttp) {
       console.log(data);
 
-      if (turnsNow != turnsSoFar) {
-				onBoardUpdate(data.table);
-      }
+			turnsNow = data.table.length;
+      myTurn = turnsNow%2 ^ iAmX;
 
       switch (data.status) {
         case 0:
@@ -63,22 +65,27 @@ function retrieveGameStateForever(onBoardUpdate) {
             myTurn = data.playerOne === myName;
             iAmX = myTurn;
             opponentName = myTurn ? data.playerTwo : data.playerOne;
-            $('#status').text('playing vs ' + opponentName);
+            $('#status').text('playing vs ' + opponentName + '. ');
 
             tictactoe();
           }
+
+          var moveStatus =  myTurn ? 'your turn' : 'opponent\'s turn';
+          $('#turn').text(moveStatus);
           break;
         case 2:
-          $('#status').text('finished');
-          alert('winner: '+data.winner);
+          $('#status').text('finished. winner '+data.winner);
+          $('#turn').text('');
           gameStarted = false;
           break;
         default:
 
       }
 
+      if (turnsNow != turnsSoFar) {
+				onBoardUpdate(data.table);
+      }
 			turnsSoFar = turnsNow;
-			turnsNow = data.table.length;
     },
     error: function(data, status, xhttp) {
       console.log("error");
@@ -93,7 +100,6 @@ function retrieveGameStateForever(onBoardUpdate) {
 
 function onBoardUpdate(moves) {
   console.log("onBoardUpldate");
-	myTurn = moves.length%2 ^ iAmX;
 	updateCells(moves);
 }
 
@@ -206,17 +212,17 @@ function tictactoe() {
       moves += 1;
       score[turn] += $(this)[0].indicator;
       console.log(score[turn]);
-      if (win(score[turn])) {
-        alert(turn + " wins!");
-        startNewGame();
-      } else if (moves === SIZE * SIZE) {
-        alert("Cat\u2019s game!");
-        startNewGame();
-      } else {
+      // if (win(score[turn])) {
+      //   alert(turn + " wins!");
+      //   startNewGame();
+      // } else if (moves === SIZE * SIZE) {
+      //   alert("Cat\u2019s game!");
+      //   startNewGame();
+      // } else {
         // turn = turn === "X" ? "O" : "X";
         myTurn = !myTurn;
         sendUpdate($(this)[0].indicator);
-      }
+      // }
     },
 
     sendUpdate = function(indicator) {
