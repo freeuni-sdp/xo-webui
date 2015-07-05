@@ -21,30 +21,45 @@ function downloadData(username) {
     url: 'https://xo-achiev.herokuapp.com/webapi/'+username,
     type: 'GET',
     beforeSend: function(e) {
-      clearRow();
+      clearRow($(".achiev"));
     },
     success: function(data, status, xhttp) {
-      drawRow(data);
+      var rec = Record.toRecord(data);
+      drawData($(".achiev"), rec);
     },
     error: function(data, status, xhttp) {
-      drawError();
+      drawError($(".achiev"));
+      console.log("error "+status);
+    }
+  });
+
+  $.ajax({
+    url: 'https://xo-achiev.herokuapp.com/webapi/'+username,
+    type: 'GET',
+    beforeSend: function(e) {
+      clearRow($(".history"));
+    },
+    success: function(data, status, xhttp) {
+      var rec = Record.toRecord(data);
+      drawData($(".history"), rec);
+    },
+    error: function(data, status, xhttp) {
+      drawError($(".history"));
       console.log("error "+status);
     }
   });
 }
 
-function clearRow() {
-  $("ul").empty();
-  $(".msg").empty();
+function clearRow($elem) {
+  $elem.empty();
 }
 
-function drawRow(data) {
-  var rec = Record.toRecord(data);
-  $('ul').last().append(rec.html());
+function drawData($elem, rec) {
+  $elem.last().append(rec.html());
 }
 
-function drawError() {
-  $('.results').last().append($('<h5/>', {'class':'msg'}).append('no results'));
+function drawError($elem) {
+  $elem.last().append($('<h5/>', {'class':'msg'}).append('no results'));
 }
 
 function Record(score, rank) {
@@ -52,7 +67,7 @@ function Record(score, rank) {
   this.rank = rank;
 
   this.html = function() {
-    return $('<li/>', {'class':'row'})
+    return $(".achiev")
       .append( $('<h5/>').append(score) )
       .append( $('<h5/>').append(rank) )
   };
