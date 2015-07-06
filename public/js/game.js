@@ -22,6 +22,8 @@ function init() {
   iAmX = false;
 
   registerOnGame();
+
+  $('table').remove();
   retrieveGameStateForever(onBoardUpdate);
 }
 
