@@ -58,6 +58,10 @@ app.get('/game', function(req, res) {
     res.render('game', {title: 'game'} );
 });
 
+app.get('/chat', function(req, res) {
+    res.render('chat', {title: 'chat window'} );
+});
+
 var server = app.listen(port, '0.0.0.0',function () {
 
   var host = server.address().address;

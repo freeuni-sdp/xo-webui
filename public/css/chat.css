@@ -1,0 +1,31 @@
+#chat-footer input{
+    width: 100%;
+}
+
+#chatwindow {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+    width: 300px;
+    height: 400px;
+    margin-right: 1%;
+    margin-top: 1%;
+    display: table;
+}
+
+#chat-header, #chat-footer {
+    text-decoration: none;
+    display: table-row;
+    width:100%;
+    height: 25px;
+    background: gray;
+    color: #FFFFFF;
+}
+
+#chat-list {
+    display: table-row;
+    width: auto;
+    overflow-y: scroll;
+    background: white;
+}
