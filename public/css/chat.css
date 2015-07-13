@@ -26,8 +26,8 @@
 #chat-list {
     display: table-row;
     width: auto;
-    overflow-y: scroll;
     background: white;
+    overflow-y: scroll; position: absolute; top: 25px; right:0; bottom: 25px; left: 0;
 }
 
 .sender {
