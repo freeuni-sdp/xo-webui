@@ -28,10 +28,11 @@ function displayChatWindow() {
 
 function loadMessages() {
     $.ajax({
-        url: 'http://private-1a7f4-kukutodocore.apiary-mock.com/webapi/todos?token='+token,
+        url: 'http://xo-chat.herokuapp.com/webapi?token='+token,
         type: 'GET',
         success: function(data, status, xhttp) {
             displayChatMessages($('#chat-list ul'), data);
+            $('#chat-list ul').trigger("chosen:updated");
         },
         error: function(data, status, xhttp) {
             console.log("error "+status);
@@ -46,20 +47,19 @@ function removeChatWindow() {
 function displayChatMessages($parent, data) {
     $.each(data, function( i, obj ) {
         var rec = ChatRecord.toRecord(obj);
-        console.log(rec.html());
         $parent.append(rec.html());
 
     });
 }
 
 function ChatRecord(data) {
-    this.user = data.id;
+    this.user = data.senderUserName;
     this.message = data.text;
 
     this.html = function() {
         return $('<li/>', {'class':'msg-record'})
-            .append( $('<h5/>').append(this.user) )
-            .append( $('<h5/>').append(this.message) );
+            .append( $('<h5/>', {'class':'sender'}).append(this.user) )
+            .append( $('<h5/>', {'class':'msg'}).append(this.message) );
     };
 
 }
