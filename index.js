@@ -9,7 +9,9 @@ var port = process.env.PORT || 3000;
 app.locals.newrelic = newrelic;
 app.set('view engine', 'jade');
 app.use(express.static('public'));
-app.use(require('connect-livereload')());
+if (process.env.NODE_ENV !== 'production') {
+    app.use(require('connect-livereload')());
+}
 
 
 app.get('/', function(req, res){
