@@ -1,5 +1,4 @@
 var newrelic = require('newrelic');
-
 var express = require('express');
 var app = express();
 
@@ -7,6 +6,7 @@ var app = express();
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 3000;
 
+app.locals.newrelic = newrelic;
 app.set('view engine', 'jade');
 app.use(express.static('public'));
 app.use(require('connect-livereload')());

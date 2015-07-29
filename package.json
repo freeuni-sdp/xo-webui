@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/freeuni-sdp/xo-webui#readme",
   "dependencies": {
-    "connect-livereload": "^0.5.3",
     "express": "^4.12.4",
     "jade": "^1.10.0",
     "newrelic": "^1.21.1"
