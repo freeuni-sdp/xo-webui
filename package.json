@@ -19,7 +19,8 @@
   "dependencies": {
     "connect-livereload": "^0.5.3",
     "express": "^4.12.4",
-    "jade": "^1.10.0"
+    "jade": "^1.10.0",
+    "newrelic": "^1.21.1"
   },
   "devDependencies": {
     "connect-livereload": "^0.5.3",
