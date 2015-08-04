@@ -2,7 +2,7 @@
 
 [![Code Climate](https://codeclimate.com/github/freeuni-sdp/xo-webui/badges/gpa.svg)](https://codeclimate.com/github/freeuni-sdp/xo-webui)
 
-how to build
+#### setup
 
 install dependencies
 ```bash
@@ -13,4 +13,8 @@ set system variables
 export NEW_RELIC_LICENSE_KEY=yournewrelickey
 export NEW_RELIC_LOG=stdout
 export NODE_ENV=[development|production]
+```
+#### run
+```bash
+gulp
 ```
